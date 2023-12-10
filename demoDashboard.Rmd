@@ -1,0 +1,86 @@
+---
+title: "NHSE Coffee and Code demo dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    logo: "./NHS_logo/NHS 10mm - RGB Blue on white.jpg"
+    theme:
+      version: 4
+      bg: "#FFFFFF"
+      fg: "#212b32"
+      primary: "#005EB8"
+      secondary: "#f0f4f5"
+      base_font: "Arial"
+    vertical_layout: fill
+    orientation: column
+---
+
+```{=html}
+<style>
+.navbar-inverse {
+  
+}
+.navbar-logo img {
+    position: absolute;
+    right: 0px;
+    max-height: 40px;
+    width: auto;
+}
+</style>
+```
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+# Install thematic and un-comment for themed static plots (i.e., ggplot2)
+# thematic::thematic_rmd()
+```
+
+Column {data-width=650 .tabset}
+-----------------------------------------------------------------------
+
+
+
+
+### Chart A
+All ggplot scripts were taken from: https://gexijin.github.io/learnR/visualizing-the-iris-flower-data-set.html 
+```{r}
+
+ggplot(data = iris) +
+  aes(x = Petal.Length, fill = Species) +
+  geom_density(alpha = 0.3)
+
+```
+
+### Chart B
+
+```{r}
+
+ggplot(data = iris) +
+  aes(x = Petal.Length, fill = Species) +
+  geom_density(alpha = 0.3) +
+  facet_wrap(~Species, nrow = 3)
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart C
+
+```{r}
+ggplot(data = iris) +
+  aes(x = Species, y = Sepal.Length, color = Species) +
+  geom_boxplot() +
+  geom_jitter(position = position_jitter(0.2))
+```
+
+### Chart D
+
+```{r}
+ggplot(data = iris) +
+  aes(x = Petal.Length, y = Petal.Width) +
+  geom_point(aes(color = Species, shape = Species)) +
+  geom_smooth(method = lm) +
+  annotate("text", x = 5, y = 0.5, label = "R=0.96")
+
+```
+
